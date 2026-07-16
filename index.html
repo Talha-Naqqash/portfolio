@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Talha Naqqash — White-Label Front-End Developer</title>
+
+<!-- Preconnect for performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0A0A0B;
+    --bg-cell: #131315;
+    --border: #232326;
+    --text: #F2F2F0;
+    --text-dim: #8A8A8E;
+    --accent: #2F6BFF;
+    --whatsapp: #25D366;
+    --font-sans: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --gap: 1px;
+    --radius: 4px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== BENTO GRID SHELL ===== */
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--gap);
+    background: var(--border);
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--gap);
+  }
+
+  .cell {
+    background: var(--bg-cell);
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  /* ===== HERO CELL ===== */
+  .cell--hero {
+    grid-column: span 12;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .hero-eyebrow::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+  }
+
+  .hero-headline {
+    font-family: var(--font-sans);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 7vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    max-width: 18ch;
+  }
+
+  .hero-headline .line {
+    display: block;
+    overflow: hidden;
+  }
+
+  .hero-headline .accent {
+    color: var(--accent);
+  }
+
+  .hero-terminal {
+    font-family: var(--font-mono);
+    font-size: clamp(0.9rem, 1.4vw, 1.1rem);
+    color: var(--text-dim);
+    max-width: 70ch;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .hero-terminal .prompt {
+    color: var(--accent);
+  }
+
+  .hero-terminal .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    background: var(--accent);
+    animation: blink 1s steps(1) infinite;
+    transform: translateY(0.15em);
+  }
+
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .gsap-fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  .no-js .gsap-fade-up {
+    opacity: 1;
+    transform: none;
+  }
+  
+  /* ===== CASE STUDIES CELL ===== */
+  .cell--case-studies {
+    grid-column: span 12;
+    padding: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .cs-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cs-row {
+    border-top: 1px solid var(--border);
+    cursor: pointer;
+    outline: none;
+  }
+  .cs-row:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cs-row__main {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto auto;
+    align-items: center;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding: 1.4rem 0.5rem;
+    transition: padding-left 0.4s ease;
+  }
+
+  .cs-row:hover .cs-row__main,
+  .cs-row:focus-visible .cs-row__main,
+  .cs-row.is-active .cs-row__main {
+    padding-left: 1.5rem;
+  }
+
+  .cs-index {
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+
+  .cs-name {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    letter-spacing: -0.01em;
+    transition: color 0.3s ease;
+  }
+
+  .cs-row:hover .cs-name,
+  .cs-row.is-active .cs-name {
+    color: var(--accent);
+  }
+
+  .cs-stack {
+    display: none;
+    gap: 0.5rem;
+  }
+  @media (min-width: 700px) {
+    .cs-stack { display: flex; }
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.25rem 0.65rem;
+    white-space: nowrap;
+  }
+
+  .cs-btn {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.6rem 1rem;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+  }
+
+  .cs-row:hover .cs-btn,
+  .cs-row.is-active .cs-btn {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ===== HIDDEN METRICS PANEL ===== */
+  .cs-row__metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(1rem, 2vw, 2.5rem);
+    max-width: 1000px;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0 0.5rem;
+  }
+
+  @media (max-width: 800px) {
+    .cs-row__metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .metric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .metric-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .metric-value {
+    font-family: var(--font-mono);
+    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+    font-weight: 500;
+  }
+
+  .metric-value--accent {
+    color: var(--accent);
+  }
+
+  .live-site-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--bg);
+    background: var(--text);
+    text-decoration: none;
+    border-radius: var(--radius);
+    padding: 0.8rem 1rem;
+    height: fit-content;
+    align-self: center;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .live-site-btn:hover {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* ===== STACK & SERVICES CELL ===== */
+  .cell--stack {
+    grid-column: span 6;
+  }
+  @media (max-width: 900px) {
+    .cell--stack { grid-column: span 12; }
+  }
+
+  .stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  /* ===== CTA / CONTACT CELL ===== */
+  .cell--contact {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  @media (max-width: 900px) {
+    .cell--contact { grid-column: span 12; }
+  }
+
+  .contact-title {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .contact-links-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    text-decoration: none;
+    font-size: 1.1rem;
+    border-bottom: 2px solid transparent;
+    width: fit-content;
+    transition: border-color 0.3s ease;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+  }
+
+  .contact-link--whatsapp {
+    color: var(--whatsapp);
+  }
+  .contact-link--whatsapp:hover {
+    border-color: var(--whatsapp);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cs-row__metrics {
+      transition: none;
+    }
+  }
+</style>
+</head>
+<body class="no-js">
+
+<main class="bento">
+
+  <!-- HERO SECTION -->
+  <section class="cell cell--hero">
+    <p class="hero-eyebrow gsap-fade-up">Available for white-label contract</p>
+
+    <h1 class="hero-headline">
+      <span class="line gsap-fade-up">I BUILD WHAT</span>
+      <span class="line gsap-fade-up">AGENCIES <span class="accent">CAN'T.</span></span>
+    </h1>
+
+    <p class="hero-terminal gsap-fade-up">
+      <span class="prompt">$</span>
+      <span class="terminal-text" data-text="whoami --front-end-developer --stack=elementor --focus=speed-optimization-and-bug-fixing"></span>
+      <span class="cursor"></span>
+    </p>
+  </section>
+
+  <!-- CASE STUDIES SECTION -->
+  <section class="cell cell--case-studies">
+    <p class="section-label">// front-end development builds</p>
+
+    <div class="cs-list" role="list">
+
+      <!-- PROJECT 1: SMART WAVE GROUP -->
+      <div class="cs-row" role="listitem" tabindex="0">
+        <div class="cs-row__main">
+          <span class="cs-index">01</span>
+          <span class="cs-name">Smart Wave Group</span>
+          <span class="cs-stack">
+            <span class="tag">WordPress</span><span class="tag">Elementor Pro</span>
+          </span>
+          <button class="cs-btn" type="button">View Metrics</button>
+        </div>
+        <div class="cs-row__metrics">
+          <div class="metric">
+            <span class="metric-label">Performance Score</span>
+            <span class="metric-value"><span class="counter" data-value="97">0</span>/100</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Speed Improved</span>
+            <span class="metric-value metric-value--accent">+<span class="counter" data-value="48">0</span>%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Load Time</span>
+            <span class="metric-value">0.7s</span>
+          </div>
+          <a href="https://smartwavegroup.com.au/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 2: CYAN BABOON -->
+      <div class="cs-row" role="listitem" tabindex="0">
+        <div class="cs-row__main">
+          <span class="cs-index">02</span>
+          <span class="cs-name">Cyan Baboon</span>
+          <span class="cs-stack">
+            <span class="tag">WordPress</span><span class="tag">Elementor Pro</span>
+          </span>
+          <button class="cs-btn" type="button">View Metrics</button>
+        </div>
+        <div class="cs-row__metrics">
+          <div class="metric">
+            <span class="metric-label">Performance Score</span>
+            <span class="metric-value"><span class="counter" data-value="94">0</span>/100</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Speed Improved</span>
+            <span class="metric-value metric-value--accent">+<span class="counter" data-value="40">0</span>%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Load Time</span>
+            <span class="metric-value">0.9s</span>
+          </div>
+          <a href="https://cyan-baboon-493148.hostingersite.com/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: SAFE DUCK -->
+      <div class="cs-row" role="listitem" tabindex="0">
+        <div class="cs-row__main">
+          <span class="cs-index">03</span>
+          <span class="cs-name">Safe Duck</span>
+          <span class="cs-stack">
+            <span class="tag">WordPress</span><span class="tag">API Connected</span>
+          </span>
+          <button class="cs-btn" type="button">View Metrics</button>
+        </div>
+        <div class="cs-row__metrics">
+          <div class="metric">
+            <span class="metric-label">Performance Score</span>
+            <span class="metric-value"><span class="counter" data-value="99">0</span>/100</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Speed Improved</span>
+            <span class="metric-value metric-value--accent">+<span class="counter" data-value="61">0</span>%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Load Time</span>
+            <span class="metric-value">0.4s</span>
+          </div>
+          <a href="https://mysafeduck.com/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
+        </div>
+      </div>
+
+      <!-- PROJECT 4: MACRO TECHNICALS -->
+      <div class="cs-row" role="listitem" tabindex="0">
+        <div class="cs-row__main">
+          <span class="cs-index">04</span>
+          <span class="cs-name">Macro Technicals</span>
+          <span class="cs-stack">
+            <span class="tag">WordPress</span><span class="tag">Elementor Pro</span>
+          </span>
+          <button class="cs-btn" type="button">View Metrics</button>
+        </div>
+        <div class="cs-row__metrics">
+          <div class="metric">
+            <span class="metric-label">Performance Score</span>
+            <span class="metric-value"><span class="counter" data-value="96">0</span>/100</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Speed Improved</span>
+            <span class="metric-value metric-value--accent">+<span class="counter" data-value="52">0</span>%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Load Time</span>
+            <span class="metric-value">0.6s</span>
+          </div>
+          <a href="https://www.macrotechnicals.com/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TECH STACK CELL -->
+  <section class="cell cell--stack">
+    <p class="section-label">// front-end development stack</p>
+    <p style="color: var(--text-dim); margin-bottom: 1.5rem;">I specialize in turning Figma designs into lightning-fast, fully responsive Elementor websites. My focus is on writing clean code, fixing complex bugs, and handling seamless API integrations to deliver premium user experiences.</p>
+    <div class="stack-grid">
+      <span class="tag">Elementor Pro</span>
+      <span class="tag">Figma to WordPress</span>
+      <span class="tag">Speed Optimization</span>
+      <span class="tag">Advanced Bug Fixing</span>
+      <span class="tag">API Integration</span>
+      <span class="tag">Responsive Layouts</span>
+      <span class="tag">Custom CSS / JS</span>
+    </div>
+  </section>
+
+  <!-- CONTACT / CTA CELL -->
+  <section class="cell cell--contact">
+    <p class="section-label">// capacity & collaboration</p>
+    <h2 class="contact-title">Got a WordPress overflow project or a complex bug to fix?</h2>
+    <div>
+      <p style="color: var(--text-dim); margin-bottom: 1rem;">Let's get it solved. White-label NDA compliance assured.</p>
+      
+      <div class="contact-links-wrapper">
+        <a href="mailto:hello@talhanaqqash.dev" class="contact-link">Email me &rarr;</a>
+        <!-- REPLACE THE 123456789 BELOW WITH YOUR ACTUAL PHONE NUMBER IN INTERNATIONAL FORMAT -->
+        <a href="https://wa.me/123456789" target="_blank" class="contact-link contact-link--whatsapp">WhatsApp chat &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script>
+  document.body.classList.remove('no-js');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof gsap !== 'undefined') {
+    gsap.to('.gsap-fade-up', {
+      opacity: 1,
+      y: 0,
+      duration: 0.9,
+      ease: 'power3.out',
+      stagger: 0.12,
+      delay: 0.2,
+      onComplete: () => {
+        startTypewriter();
+      }
+    });
+  } else {
+    document.querySelectorAll('.gsap-fade-up').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+    startTypewriter();
+  }
+
+  function startTypewriter() {
+    const textEl = document.querySelector('.terminal-text');
+    const textToType = textEl.dataset.text;
+    let index = 0;
+
+    function typeChar() {
+      if (index < textToType.length) {
+        textEl.textContent += textToType.charAt(index);
+        index++;
+        setTimeout(typeChar, 35); 
+      }
+    }
+    typeChar();
+  }
+
+  const rows = document.querySelectorAll('.cs-row');
+
+  if (typeof gsap === 'undefined') {
+    rows.forEach(row => {
+      const panel = row.querySelector('.cs-row__metrics');
+      panel.style.transition = 'height 0.35s ease, opacity 0.35s ease, padding 0.35s ease';
+      
+      const open = () => {
+        panel.style.height = panel.scrollHeight + 'px';
+        panel.style.opacity = '1';
+        panel.style.padding = '1rem 0.5rem 1.6rem';
+      };
+      const close = () => {
+        panel.style.height = '0';
+        panel.style.opacity = '0';
+        panel.style.padding = '0 0.5rem';
+      };
+      row.addEventListener('mouseenter', open);
+      row.addEventListener('mouseleave', close);
+      row.addEventListener('click', () => row.classList.toggle('is-active'));
+    });
+    return;
+  }
+
+  rows.forEach(row => {
+    const panel = row.querySelector('.cs-row__metrics');
+    const valueEls = panel.querySelectorAll('.counter');
+    let countersRan = false;
+
+    const tl = gsap.timeline({ paused: true })
+      .to(panel, {
+        height: 'auto',
+        opacity: 1,
+        paddingTop: '1rem',
+        paddingBottom: '1.6rem',
+        duration: 0.45,
+        ease: 'power2.out'
+      }, 0);
+
+    const runCounters = () => {
+      if (countersRan) return;
+      countersRan = true;
+      valueEls.forEach(el => {
+        const target = parseFloat(el.dataset.value);
+        const counter = { val: 0 };
+        gsap.to(counter, {
+          val: target,
+          duration: 0.8,
+          ease: 'power1.out',
+          onUpdate: () => { el.textContent = Math.round(counter.val); }
+        });
+      });
+    };
+
+    const open = () => {
+      tl.timeScale(1).play();
+      runCounters();
+    };
+    const close = () => {
+      tl.timeScale(1.4).reverse();
+    };
+
+    row.addEventListener('mouseenter', open);
+    row.addEventListener('mouseleave', close);
+    row.addEventListener('focus', open);
+    row.addEventListener('blur', close);
+
+    row.addEventListener('click', () => {
+      row.classList.toggle('is-active');
+      if (row.classList.contains('is-active')) open(); else close();
+    });
+  });
+});
+</script>
+
+</body>
+</html>
