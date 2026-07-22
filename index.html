@@ -709,7 +709,76 @@ a.contact__item-value:hover { color: var(--color-accent); }
   height: 38px;
   display: flex;
   align-items: center;
-  justify-content: cen
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  transition: all var(--transition-fast);
+}
+.footer__back-to-top:hover { background: var(--gradient-accent); color: #fff; border-color: transparent; }
+
+/* ---------- 14. Keyframes ---------- */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes pulseGlow {
+  0%, 100% { transform: scale(1); opacity: 0.18; }
+  50% { transform: scale(1.1); opacity: 0.28; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__badge, .hero__photo-glow, .hero__role-cursor { animation: none; }
+}
+
+/* ---------- 15. Responsive ---------- */
+@media (max-width: 960px) {
+  .hero__container,
+  .about__grid,
+  .contact__grid { grid-template-columns: 1fr; }
+
+  .hero__visual { order: -1; min-height: 300px; }
+  .hero__photo, .hero__photo--placeholder { width: 220px; height: 220px; font-size: 3rem; }
+
+  .skills__grid, .projects__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  .header__nav {
+    position: fixed;
+    inset: 4.2rem var(--space-md) auto;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--space-md);
+    transform: translateY(-12px);
+    opacity: 0;
+    pointer-events: none;
+    transition: all var(--transition-base);
+  }
+  .header__nav--open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  .header__nav-list { flex-direction: column; gap: var(--space-sm); text-align: center; }
+  .header__cta { display: none; }
+  .header__hamburger { display: flex; }
+
+  .hero__stats { flex-wrap: wrap; }
+  .skills__grid, .projects__grid { grid-template-columns: 1fr; }
+  .hero__badge { position: static; display: inline-flex; margin: var(--space-3xs); animation: none; }
+  .hero__visual { flex-wrap: wrap; gap: var(--space-2xs); }
+  }
+
   
 </style>
 
