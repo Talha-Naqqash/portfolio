@@ -1,662 +1,384 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Talha Naqqash — White-Label Front-End Developer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talha Naqqash — Senior Front-End &amp; WordPress Developer</title>
+  <meta name="description" content="Talha Naqqash is a Senior Front-End &amp; WordPress Developer architecting high-performance, custom web solutions for digital agencies. Specializing in bespoke WordPress themes, API integrations, and pixel-perfect Figma conversions." />
+  <meta name="keywords" content="Talha Naqqash, Front-End Developer, WordPress Developer, PHP, JavaScript, Elementor, JetEngine, SASS" />
+  <meta property="og:title" content="Talha Naqqash — Senior Front-End & WordPress Developer" />
+  <meta property="og:description" content="Architecting high-performance, custom web solutions for digital agencies." />
+  <meta property="og:type" content="website" />
 
-<!-- Preconnect for performance -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Fonts: Outfit (display/body) + JetBrains Mono (code, typed text, tags) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-<style>
-  :root {
-    --bg: #0A0A0B;
-    --bg-cell: #131315;
-    --border: #232326;
-    --text: #F2F2F0;
-    --text-dim: #8A8A8E;
-    --accent: #2F6BFF;
-    --whatsapp: #25D366;
-    --font-sans: 'Space Grotesk', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
-    --gap: 1px;
-    --radius: 4px;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--font-sans);
-    line-height: 1.4;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ===== BENTO GRID SHELL ===== */
-  .bento {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: var(--gap);
-    background: var(--border);
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: var(--gap);
-  }
-
-  .cell {
-    background: var(--bg-cell);
-    border-radius: var(--radius);
-    padding: clamp(1.5rem, 4vw, 3rem);
-  }
-
-  /* ===== HERO CELL ===== */
-  .cell--hero {
-    grid-column: span 12;
-    min-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .hero-eyebrow::before {
-    content: "";
-    width: 8px;
-    height: 8px;
-    background: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 12px var(--accent);
-  }
-
-  .hero-headline {
-    font-family: var(--font-sans);
-    font-weight: 900;
-    font-size: clamp(2.5rem, 7vw, 6.5rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    text-transform: uppercase;
-    max-width: 18ch;
-  }
-
-  .hero-headline .line {
-    display: block;
-    overflow: hidden;
-  }
-
-  .hero-headline .accent {
-    color: var(--accent);
-  }
-
-  .hero-terminal {
-    font-family: var(--font-mono);
-    font-size: clamp(0.9rem, 1.4vw, 1.1rem);
-    color: var(--text-dim);
-    max-width: 70ch;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-  }
-
-  .hero-terminal .prompt {
-    color: var(--accent);
-  }
-
-  .hero-terminal .cursor {
-    display: inline-block;
-    width: 0.55em;
-    height: 1.1em;
-    background: var(--accent);
-    animation: blink 1s steps(1) infinite;
-    transform: translateY(0.15em);
-  }
-
-  @keyframes blink { 50% { opacity: 0; } }
-
-  .gsap-fade-up {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-
-  .no-js .gsap-fade-up {
-    opacity: 1;
-    transform: none;
-  }
-  
-  /* ===== CASE STUDIES CELL ===== */
-  .cell--case-studies {
-    grid-column: span 12;
-    padding: clamp(1.5rem, 4vw, 3rem);
-  }
-
-  .section-label {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-  }
-
-  .cs-list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .cs-row {
-    border-top: 1px solid var(--border);
-    cursor: pointer;
-    outline: none;
-  }
-  .cs-row:last-child {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .cs-row__main {
-    display: grid;
-    grid-template-columns: 3rem 1fr auto auto;
-    align-items: center;
-    gap: clamp(1rem, 3vw, 2.5rem);
-    padding: 1.4rem 0.5rem;
-    transition: padding-left 0.4s ease;
-  }
-
-  .cs-row:hover .cs-row__main,
-  .cs-row:focus-visible .cs-row__main,
-  .cs-row.is-active .cs-row__main {
-    padding-left: 1.5rem;
-  }
-
-  .cs-index {
-    font-family: var(--font-mono);
-    color: var(--text-dim);
-    font-size: 0.85rem;
-  }
-
-  .cs-name {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
-    letter-spacing: -0.01em;
-    transition: color 0.3s ease;
-  }
-
-  .cs-row:hover .cs-name,
-  .cs-row.is-active .cs-name {
-    color: var(--accent);
-  }
-
-  .cs-stack {
-    display: none;
-    gap: 0.5rem;
-  }
-  @media (min-width: 700px) {
-    .cs-stack { display: flex; }
-  }
-
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 0.25rem 0.65rem;
-    white-space: nowrap;
-  }
-
-  .cs-btn {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--text);
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 0.6rem 1rem;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
-  }
-
-  .cs-row:hover .cs-btn,
-  .cs-row.is-active .cs-btn {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  /* ===== HIDDEN METRICS PANEL ===== */
-  .cs-row__metrics {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(1rem, 2vw, 2.5rem);
-    max-width: 1000px;
-    height: 0;
-    opacity: 0;
-    overflow: hidden;
-    padding: 0 0.5rem;
-  }
-
-  @media (max-width: 800px) {
-    .cs-row__metrics {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .metric {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-
-  .metric-label {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .metric-value {
-    font-family: var(--font-mono);
-    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-    font-weight: 500;
-  }
-
-  .metric-value--accent {
-    color: var(--accent);
-  }
-
-  .live-site-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--bg);
-    background: var(--text);
-    text-decoration: none;
-    border-radius: var(--radius);
-    padding: 0.8rem 1rem;
-    height: fit-content;
-    align-self: center;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  .live-site-btn:hover {
-    background: var(--accent);
-    color: #fff;
-  }
-
-  /* ===== STACK & SERVICES CELL ===== */
-  .cell--stack {
-    grid-column: span 6;
-  }
-  @media (max-width: 900px) {
-    .cell--stack { grid-column: span 12; }
-  }
-
-  .stack-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-
-  /* ===== CTA / CONTACT CELL ===== */
-  .cell--contact {
-    grid-column: span 6;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 2rem;
-  }
-  @media (max-width: 900px) {
-    .cell--contact { grid-column: span 12; }
-  }
-
-  .contact-title {
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
-    font-weight: 900;
-    line-height: 1.1;
-    text-transform: uppercase;
-  }
-
-  .contact-links-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-  }
-
-  .contact-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--accent);
-    font-family: var(--font-mono);
-    text-decoration: none;
-    font-size: 1.1rem;
-    border-bottom: 2px solid transparent;
-    width: fit-content;
-    transition: border-color 0.3s ease;
-  }
-
-  .contact-link:hover {
-    border-color: var(--accent);
-  }
-
-  .contact-link--whatsapp {
-    color: var(--whatsapp);
-  }
-  .contact-link--whatsapp:hover {
-    border-color: var(--whatsapp);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cs-row__metrics {
-      transition: none;
-    }
-  }
-</style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="no-js">
+<body>
 
-<main class="bento">
+  <!-- Skip link for keyboard/screen-reader users -->
+  <a class="u-skip-link" href="#main">Skip to main content</a>
 
-  <!-- HERO SECTION -->
-  <section class="cell cell--hero">
-<p class="hero-eyebrow gsap-fade-up">Talha Naqqash &mdash; Available for white-label contract</p>
-    <h1 class="hero-headline">
-      <span class="line gsap-fade-up">I BUILD WHAT</span>
-      <span class="line gsap-fade-up">AGENCIES <span class="accent">CAN'T.</span></span>
-    </h1>
+  <!-- Ambient cursor glow (desktop only, disabled under prefers-reduced-motion) -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
-    <p class="hero-terminal gsap-fade-up">
-      <span class="prompt">$</span>
-      <span class="terminal-text" data-text="whoami --front-end-developer --stack=elementor --focus=speed-optimization-and-bug-fixing"></span>
-      <span class="cursor"></span>
-    </p>
-  </section>
+  <!-- ================= HEADER ================= -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="#hero" aria-label="Talha Naqqash — home">
+        TN<span class="header__logo-dot">.</span>
+      </a>
 
-  <!-- CASE STUDIES SECTION -->
-  <section class="cell cell--case-studies">
-    <p class="section-label">// front-end development builds</p>
+      <nav class="header__nav" id="headerNav" aria-label="Primary">
+        <ul class="header__nav-list">
+          <li class="header__nav-item"><a href="#about" class="header__nav-link">About</a></li>
+          <li class="header__nav-item"><a href="#skills" class="header__nav-link">Skills</a></li>
+          <li class="header__nav-item"><a href="#projects" class="header__nav-link">Projects</a></li>
+          <li class="header__nav-item"><a href="#contact" class="header__nav-link">Contact</a></li>
+        </ul>
+      </nav>
 
-    <div class="cs-list" role="list">
+      <a href="#contact" class="header__cta">Hire Me</a>
 
-      <!-- PROJECT 1: SMART WAVE GROUP -->
-      <div class="cs-row" role="listitem" tabindex="0">
-        <div class="cs-row__main">
-          <span class="cs-index">01</span>
-          <span class="cs-name">Smart Wave Group</span>
-          <span class="cs-stack">
-            <span class="tag">WordPress</span><span class="tag">Elementor Pro</span>
-          </span>
-          <button class="cs-btn" type="button">View Metrics</button>
-        </div>
-        <div class="cs-row__metrics">
-          <div class="metric">
-            <span class="metric-label">Performance Score</span>
-            <span class="metric-value"><span class="counter" data-value="97">0</span>/100</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Speed Improved</span>
-            <span class="metric-value metric-value--accent">+<span class="counter" data-value="48">0</span>%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Load Time</span>
-            <span class="metric-value">0.7s</span>
-          </div>
-          <a href="https://smartwavegroup.com.au/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
-        </div>
-      </div>
-
-      <!-- PROJECT 2: CYAN BABOON -->
-      <div class="cs-row" role="listitem" tabindex="0">
-        <div class="cs-row__main">
-          <span class="cs-index">02</span>
-          <span class="cs-name">Cyan Baboon</span>
-          <span class="cs-stack">
-            <span class="tag">WordPress</span><span class="tag">Elementor Pro</span>
-          </span>
-          <button class="cs-btn" type="button">View Metrics</button>
-        </div>
-        <div class="cs-row__metrics">
-          <div class="metric">
-            <span class="metric-label">Performance Score</span>
-            <span class="metric-value"><span class="counter" data-value="94">0</span>/100</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Speed Improved</span>
-            <span class="metric-value metric-value--accent">+<span class="counter" data-value="40">0</span>%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Load Time</span>
-            <span class="metric-value">0.9s</span>
-          </div>
-          <a href="https://cyan-baboon-493148.hostingersite.com/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
-        </div>
-      </div>
-
-      <!-- PROJECT 3: SAFE DUCK -->
-      <div class="cs-row" role="listitem" tabindex="0">
-        <div class="cs-row__main">
-          <span class="cs-index">03</span>
-          <span class="cs-name">Safe Duck</span>
-          <span class="cs-stack">
-            <span class="tag">WordPress</span><span class="tag">API Connected</span>
-          </span>
-          <button class="cs-btn" type="button">View Metrics</button>
-        </div>
-        <div class="cs-row__metrics">
-          <div class="metric">
-            <span class="metric-label">Performance Score</span>
-            <span class="metric-value"><span class="counter" data-value="99">0</span>/100</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Speed Improved</span>
-            <span class="metric-value metric-value--accent">+<span class="counter" data-value="61">0</span>%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Load Time</span>
-            <span class="metric-value">0.4s</span>
-          </div>
-          <a href="https://mysafeduck.com/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
-        </div>
-      </div>
-
-      <!-- PROJECT 4: MACRO TECHNICALS -->
-      <div class="cs-row" role="listitem" tabindex="0">
-        <div class="cs-row__main">
-          <span class="cs-index">04</span>
-          <span class="cs-name">Macro Technicals</span>
-          <span class="cs-stack">
-            <span class="tag">WordPress</span><span class="tag">Elementor Pro</span>
-          </span>
-          <button class="cs-btn" type="button">View Metrics</button>
-        </div>
-        <div class="cs-row__metrics">
-          <div class="metric">
-            <span class="metric-label">Performance Score</span>
-            <span class="metric-value"><span class="counter" data-value="96">0</span>/100</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Speed Improved</span>
-            <span class="metric-value metric-value--accent">+<span class="counter" data-value="52">0</span>%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Load Time</span>
-            <span class="metric-value">0.6s</span>
-          </div>
-          <a href="https://www.macrotechnicals.com/" target="_blank" class="live-site-btn" onclick="event.stopPropagation()">Live Site &nearr;</a>
-        </div>
-      </div>
-
+      <button class="header__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="headerNav">
+        <span class="header__hamburger-bar"></span>
+        <span class="header__hamburger-bar"></span>
+        <span class="header__hamburger-bar"></span>
+      </button>
     </div>
-  </section>
+  </header>
 
-  <!-- TECH STACK CELL -->
-  <section class="cell cell--stack">
-    <p class="section-label">// front-end development stack</p>
-    <p style="color: var(--text-dim); margin-bottom: 1.5rem;">I specialize in turning Figma designs into lightning-fast, fully responsive Elementor websites. My focus is on writing clean code, fixing complex bugs, and handling seamless API integrations to deliver premium user experiences.</p>
-    <div class="stack-grid">
-      <span class="tag">Elementor Pro</span>
-      <span class="tag">Figma to WordPress</span>
-      <span class="tag">Speed Optimization</span>
-      <span class="tag">Advanced Bug Fixing</span>
-      <span class="tag">API Integration</span>
-      <span class="tag">Responsive Layouts</span>
-      <span class="tag">Custom CSS / JS</span>
-    </div>
-  </section>
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="hero">
+      <canvas class="hero__canvas" id="particleCanvas" aria-hidden="true"></canvas>
 
-  <!-- CONTACT / CTA CELL -->
-  <section class="cell cell--contact">
-    <p class="section-label">// capacity & collaboration</p>
-    <h2 class="contact-title">Got a WordPress overflow project or a complex bug to fix?</h2>
-    <div>
-      <p style="color: var(--text-dim); margin-bottom: 1rem;">Let's get it solved. White-label NDA compliance assured.</p>
-      
-      <div class="contact-links-wrapper">
-        <a href="mailto:talhanaqqash998@gmail.com" class="contact-link">Email me &rarr;</a>
-        <!-- REPLACE THE 123456789 BELOW WITH YOUR ACTUAL PHONE NUMBER IN INTERNATIONAL FORMAT -->
-        <a href="https://wa.me/923126311998" target="_blank" class="contact-link contact-link--whatsapp">WhatsApp chat &rarr;</a>
+      <div class="hero__container">
+        <div class="hero__content">
+          <p class="hero__greeting">Hello, world! <span aria-hidden="true">👋</span></p>
+
+          <h1 class="hero__title">
+            Hi, I'm <span class="hero__title-highlight">Talha Naqqash</span>
+          </h1>
+
+          <div class="hero__role" aria-live="polite">
+            <span class="hero__role-label">Currently working as a</span>
+            <span class="hero__role-typed" id="typedText"></span><span class="hero__role-cursor" aria-hidden="true">|</span>
+          </div>
+
+          <p class="hero__tagline">
+            Architecting high-performance, custom web solutions for digital agencies.
+            Specializing in bespoke WordPress themes, complex API integrations, and
+            pixel-perfect Figma conversions.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#projects" class="button button--primary">
+              <span>View My Work</span>
+              <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="mailto:hello@talhanaqqash.dev" class="button button--secondary">Partner With Me</a>
+          </div>
+
+          <div class="hero__stats">
+            <div class="hero__stat">
+              <span class="hero__stat-number" data-target="60">0</span><span class="hero__stat-unit">+</span>
+              <span class="hero__stat-label">Projects Shipped</span>
+            </div>
+            <div class="hero__stat-divider" aria-hidden="true"></div>
+            <div class="hero__stat">
+              <span class="hero__stat-number" data-target="4">0</span><span class="hero__stat-unit">+</span>
+              <span class="hero__stat-label">Years Experience</span>
+            </div>
+            <div class="hero__stat-divider" aria-hidden="true"></div>
+            <div class="hero__stat">
+              <span class="hero__stat-number" data-target="40">0</span><span class="hero__stat-unit">+</span>
+              <span class="hero__stat-label">Agency Partners</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__photo-glow" aria-hidden="true"></div>
+
+          <!-- Replace with your actual headshot URL -->
+          <div class="hero__photo hero__photo--placeholder" role="img" aria-label="Talha Naqqash">
+            <span>TN</span>
+          </div>
+
+          <div class="hero__badge hero__badge--wp" style="--delay: 0s">
+            <span class="hero__badge-icon" aria-hidden="true">⚡</span> WordPress
+          </div>
+          <div class="hero__badge hero__badge--js" style="--delay: .6s">
+            <span class="hero__badge-icon" aria-hidden="true">{ }</span> Vanilla JS
+          </div>
+          <div class="hero__badge hero__badge--php" style="--delay: 1.2s">
+            <span class="hero__badge-icon" aria-hidden="true">&lt;/&gt;</span> PHP
+          </div>
+        </div>
       </div>
+    </section>
 
+    <!-- ================= ABOUT ================= -->
+    <section class="section about" id="about">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">Who I Am</span>
+          <h2 class="section-heading__title">About <span class="section-heading__highlight">Me</span></h2>
+        </div>
+
+        <div class="about__grid">
+          <div class="about__text u-reveal">
+            <p class="about__lead">
+              I'm <strong>Talha Naqqash</strong>, a Senior Front-End &amp; WordPress Developer who
+              architects high-performance, custom web solutions for digital agencies.
+            </p>
+            <p class="about__paragraph">
+              My work centers on bespoke WordPress theme and plugin development, wiring up
+              complex third-party API integrations, and converting Figma designs into
+              pixel-perfect, production-ready interfaces. I build with
+              <strong>PHP, Vanilla JavaScript, SASS/SCSS, Elementor, and Crocoblock JetEngine</strong>,
+              and keep every project shippable with disciplined <strong>Git/CI</strong> workflows.
+            </p>
+            <p class="about__paragraph">
+              I enjoy the agency side of development in particular: tight timelines, exacting
+              design handoffs, and client sites that need to look and perform flawlessly from
+              day one.
+            </p>
+            <div class="about__actions">
+              <a href="#contact" class="button button--primary">Let's Talk</a>
+              <a href="resume.pdf" download class="button button--outline">
+                <span aria-hidden="true">⬇</span> Download CV
+              </a>
+            </div>
+          </div>
+
+          <div class="about__visual u-reveal">
+            <div class="code-window">
+              <div class="code-window__header">
+                <span class="code-window__dot code-window__dot--red"></span>
+                <span class="code-window__dot code-window__dot--yellow"></span>
+                <span class="code-window__dot code-window__dot--green"></span>
+                <span class="code-window__title">profile.json</span>
+              </div>
+              <div class="code-window__body">
+<pre class="code-window__pre"><code>{
+  <span class="code-window__key">"name"</span>: <span class="code-window__value">"Talha Naqqash"</span>,
+  <span class="code-window__key">"role"</span>: <span class="code-window__value">"Senior Front-End & WordPress Developer"</span>,
+  <span class="code-window__key">"specialty"</span>: <span class="code-window__value">"Custom WordPress Solutions"</span>,
+  <span class="code-window__key">"stack"</span>: [
+    <span class="code-window__value">"PHP"</span>, <span class="code-window__value">"Vanilla JS"</span>,
+    <span class="code-window__value">"SASS/SCSS"</span>, <span class="code-window__value">"JetEngine"</span>
+  ],
+  <span class="code-window__key">"focus"</span>: [
+    <span class="code-window__value">"Pixel-Perfect UI"</span>,
+    <span class="code-window__value">"API Integrations"</span>
+  ]
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="section skills" id="skills">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">What I Know</span>
+          <h2 class="section-heading__title">My <span class="section-heading__highlight">Skills</span></h2>
+        </div>
+
+        <div class="skills__grid">
+          <div class="skills__category u-reveal">
+            <h3 class="skills__category-title">Frontend &amp; UI</h3>
+            <div class="skills__tag-list">
+              <span class="skills__tag">Vanilla JS (ES6+)</span>
+              <span class="skills__tag">SASS / SCSS</span>
+              <span class="skills__tag">Figma-to-Code</span>
+              <span class="skills__tag">Responsive UI</span>
+            </div>
+          </div>
+
+          <div class="skills__category u-reveal">
+            <h3 class="skills__category-title">WordPress &amp; CMS</h3>
+            <div class="skills__tag-list">
+              <span class="skills__tag">Custom Themes</span>
+              <span class="skills__tag">Custom Plugins</span>
+              <span class="skills__tag">Elementor</span>
+              <span class="skills__tag">Crocoblock JetEngine</span>
+              <span class="skills__tag">PHP</span>
+            </div>
+          </div>
+
+          <div class="skills__category u-reveal">
+            <h3 class="skills__category-title">Tools &amp; Workflow</h3>
+            <div class="skills__tag-list">
+              <span class="skills__tag">Git / CI</span>
+              <span class="skills__tag">API Integrations</span>
+              <span class="skills__tag">Google Apps Script</span>
+              <span class="skills__tag">Cross-browser QA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section class="section projects" id="projects">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">What I've Built</span>
+          <h2 class="section-heading__title">Featured <span class="section-heading__highlight">Projects</span></h2>
+        </div>
+
+        <div class="projects__grid">
+          <article class="projects__card u-reveal">
+            <div class="projects__thumb projects__thumb--one" aria-hidden="true">
+              <span class="projects__thumb-icon">🧩</span>
+            </div>
+            <div class="projects__body">
+              <div class="projects__tags">
+                <span class="projects__tag">WordPress</span>
+                <span class="projects__tag">PHP</span>
+                <span class="projects__tag">JetEngine</span>
+              </div>
+              <h3 class="projects__title">Custom Enterprise WordPress Solutions</h3>
+              <p class="projects__desc">Architected end-to-end custom WordPress platforms for international clients like Smart Wave Group, utilizing advanced JetEngine logic.</p>
+              <a href="#" class="projects__link">View Project →</a>
+            </div>
+          </article>
+
+          <article class="projects__card u-reveal">
+            <div class="projects__thumb projects__thumb--two" aria-hidden="true">
+              <span class="projects__thumb-icon">🔌</span>
+            </div>
+            <div class="projects__body">
+              <div class="projects__tags">
+                <span class="projects__tag">API</span>
+                <span class="projects__tag">Vanilla JS</span>
+                <span class="projects__tag">Google Apps Script</span>
+              </div>
+              <h3 class="projects__title">Automated Lead Extraction Engine</h3>
+              <p class="projects__desc">Engineered a custom B2B data extraction pipeline integrating the Google Places API and smart email scraping algorithms.</p>
+              <a href="#" class="projects__link">View Project →</a>
+            </div>
+          </article>
+
+          <article class="projects__card u-reveal">
+            <div class="projects__thumb projects__thumb--three" aria-hidden="true">
+              <span class="projects__thumb-icon">🎨</span>
+            </div>
+            <div class="projects__body">
+              <div class="projects__tags">
+                <span class="projects__tag">Git/GitHub</span>
+                <span class="projects__tag">Vercel</span>
+                <span class="projects__tag">CI/CD</span>
+              </div>
+              <h3 class="projects__title">Continuous Deployment Portfolio</h3>
+              <p class="projects__desc">Developed a lightning-fast, custom-coded HTML portfolio utilizing modern Git workflows and global edge-network deployment.</p>
+              <a href="#" class="projects__link">View Project →</a>
+            </div>
+          </article>
+
+          <article class="projects__card projects__card--cta u-reveal">
+            <span class="projects__cta-icon" aria-hidden="true">🚀</span>
+            <h3 class="projects__cta-title">Have a Project in Mind?</h3>
+            <p class="projects__cta-desc">Let's build something amazing together for your next client or product.</p>
+            <a href="#contact" class="button button--primary">Get In Touch</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section contact" id="contact">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">Let's Connect</span>
+          <h2 class="section-heading__title">Get In <span class="section-heading__highlight">Touch</span></h2>
+        </div>
+
+        <div class="contact__grid">
+          <div class="contact__info u-reveal">
+            <p class="contact__lead">
+              Open to new freelance projects and full-time roles with digital agencies.
+              Have a project you'd like to discuss? Let's make it happen.
+            </p>
+
+            <div class="contact__items">
+              <div class="contact__item">
+                <div class="contact__item-icon" aria-hidden="true">📧</div>
+                <div>
+                  <span class="contact__item-label">Email</span>
+                  <a href="mailto:hello@talhanaqqash.dev" class="contact__item-value">hello@talhanaqqash.dev</a>
+                </div>
+              </div>
+              <div class="contact__item">
+                <div class="contact__item-icon" aria-hidden="true">📍</div>
+                <div>
+                  <span class="contact__item-label">Location</span>
+                  <span class="contact__item-value">Multan, Pakistan</span>
+                </div>
+              </div>
+              <div class="contact__item">
+                <div class="contact__item-icon" aria-hidden="true">🟢</div>
+                <div>
+                  <span class="contact__item-label">Status</span>
+                  <span class="contact__item-value">Available for new projects</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact__socials">
+              <a href="#" class="contact__social" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23.96-.27 1.98-.4 3-.4 1.02 0 2.04.13 3 .4 2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.19.7.8.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12Z"/></svg>
+              </a>
+              <a href="https://www.linkedin.com/in/talha-naqqash-625b4b26b/" class="contact__social" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <form class="contact__form u-reveal" id="contactForm" novalidate>
+            <div class="contact__field">
+              <label class="contact__label" for="name">Your Name</label>
+              <input class="contact__input" type="text" id="name" name="name" autocomplete="name" required />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="email">Your Email</label>
+              <input class="contact__input" type="email" id="email" name="email" autocomplete="email" required />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="subject">Subject</label>
+              <input class="contact__input" type="text" id="subject" name="subject" required />
+            </div>
+            <div class="contact__field">
+              <label class="contact__label" for="message">Message</label>
+              <textarea class="contact__input contact__input--textarea" id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="button button--primary contact__submit">Send Message</button>
+            <p class="contact__form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="u-container footer__inner">
+      <a class="footer__logo" href="#hero">TN<span class="footer__logo-dot">.</span></a>
+      <p class="footer__copy">© <span id="footerYear"></span> Talha Naqqash. Built with care.</p>
+      <a class="footer__back-to-top" href="#hero" aria-label="Back to top">↑</a>
     </div>
-  </section>
+  </footer>
 
-</main>
-
-<script>
-  document.body.classList.remove('no-js');
-</script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof gsap !== 'undefined') {
-    gsap.to('.gsap-fade-up', {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: 'power3.out',
-      stagger: 0.12,
-      delay: 0.2,
-      onComplete: () => {
-        startTypewriter();
-      }
-    });
-  } else {
-    document.querySelectorAll('.gsap-fade-up').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    });
-    startTypewriter();
-  }
-
-  function startTypewriter() {
-    const textEl = document.querySelector('.terminal-text');
-    const textToType = textEl.dataset.text;
-    let index = 0;
-
-    function typeChar() {
-      if (index < textToType.length) {
-        textEl.textContent += textToType.charAt(index);
-        index++;
-        setTimeout(typeChar, 35); 
-      }
-    }
-    typeChar();
-  }
-
-  const rows = document.querySelectorAll('.cs-row');
-
-  if (typeof gsap === 'undefined') {
-    rows.forEach(row => {
-      const panel = row.querySelector('.cs-row__metrics');
-      panel.style.transition = 'height 0.35s ease, opacity 0.35s ease, padding 0.35s ease';
-      
-      const open = () => {
-        panel.style.height = panel.scrollHeight + 'px';
-        panel.style.opacity = '1';
-        panel.style.padding = '1rem 0.5rem 1.6rem';
-      };
-      const close = () => {
-        panel.style.height = '0';
-        panel.style.opacity = '0';
-        panel.style.padding = '0 0.5rem';
-      };
-      row.addEventListener('mouseenter', open);
-      row.addEventListener('mouseleave', close);
-      row.addEventListener('click', () => row.classList.toggle('is-active'));
-    });
-    return;
-  }
-
-  rows.forEach(row => {
-    const panel = row.querySelector('.cs-row__metrics');
-    const valueEls = panel.querySelectorAll('.counter');
-    let countersRan = false;
-
-    const tl = gsap.timeline({ paused: true })
-      .to(panel, {
-        height: 'auto',
-        opacity: 1,
-        paddingTop: '1rem',
-        paddingBottom: '1.6rem',
-        duration: 0.45,
-        ease: 'power2.out'
-      }, 0);
-
-    const runCounters = () => {
-      if (countersRan) return;
-      countersRan = true;
-      valueEls.forEach(el => {
-        const target = parseFloat(el.dataset.value);
-        const counter = { val: 0 };
-        gsap.to(counter, {
-          val: target,
-          duration: 0.8,
-          ease: 'power1.out',
-          onUpdate: () => { el.textContent = Math.round(counter.val); }
-        });
-      });
-    };
-
-    const open = () => {
-      tl.timeScale(1).play();
-      runCounters();
-    };
-    const close = () => {
-      tl.timeScale(1.4).reverse();
-    };
-
-    row.addEventListener('mouseenter', open);
-    row.addEventListener('mouseleave', close);
-    row.addEventListener('focus', open);
-    row.addEventListener('blur', close);
-
-    row.addEventListener('click', () => {
-      row.classList.toggle('is-active');
-      if (row.classList.contains('is-active')) open(); else close();
-    });
-  });
-});
-</script>
-
+  <script src="js/script.js"></script>
 </body>
-</html>
+  </html>
+  
