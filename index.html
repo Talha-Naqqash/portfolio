@@ -793,7 +793,27 @@
     overflow-x: auto; /* Allows the code block to scroll internally without breaking the page */
   }
   /* --------------------------- */
+  /* --- STRICT MOBILE OVERFLOW FIX --- */
+  .about__grid {
+    grid-template-columns: minmax(0, 1fr); /* Forces the grid to obey screen bounds */
+  }
 
+  .about__visual {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .code-window__pre {
+    white-space: pre-wrap; /* Forces long JSON strings to wrap on mobile */
+    word-break: break-word;
+  }
+  
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  /* ---------------------------------- */
+    
     
   </style>
 </head>
