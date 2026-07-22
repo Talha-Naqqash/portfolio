@@ -667,4 +667,734 @@
     transform: translateY(-2px); 
   }
 
-  /
+  /* ---------- 13. Footer ---------- */
+  .footer { padding-block: var(--space-lg); border-top: 1px solid var(--color-border); }
+  .footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+  .footer__logo { font-family: var(--font-display); font-weight: 700; }
+  .footer__logo-dot { color: var(--color-accent); }
+  .footer__copy { color: var(--color-text-muted); font-size: 0.9rem; }
+  .footer__back-to-top {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    transition: all var(--transition-fast);
+  }
+  .footer__back-to-top:hover { background: var(--gradient-accent); color: #fff; border-color: transparent; }
+
+  /* ---------- 14. Keyframes ---------- */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 0.18; }
+    50% { transform: scale(1.1); opacity: 0.28; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__badge, .hero__photo-glow, .hero__role-cursor { animation: none; }
+  }
+
+  /* ---------- 15. Responsive ---------- */
+  @media (max-width: 960px) {
+    .hero__container,
+    .about__grid { grid-template-columns: 1fr; }
+
+    .hero__visual { order: -1; min-height: 300px; }
+    .hero__photo, .hero__photo--placeholder { width: 220px; height: 220px; font-size: 3rem; }
+
+    .skills__grid, .projects__grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 720px) {
+    .header__nav {
+      position: fixed;
+      inset: 4.2rem var(--space-md) auto;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-md);
+      transform: translateY(-12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all var(--transition-base);
+    }
+    .header__nav--open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .header__nav-list { flex-direction: column; gap: var(--space-sm); text-align: center; }
+    .header__cta { display: none; }
+    .header__hamburger { display: flex; }
+
+    .hero__stats { flex-wrap: wrap; }
+    .skills__grid, .projects__grid { grid-template-columns: 1fr; }
+    .hero__badge { position: static; display: inline-flex; margin: var(--space-3xs); animation: none; }
+    .hero__visual { flex-wrap: wrap; gap: var(--space-2xs); }
+  }
+  </style>
+</head>
+<body>
+
+  <!-- Skip link for keyboard/screen-reader users -->
+  <a class="u-skip-link" href="#main">Skip to main content</a>
+
+  <!-- Ambient cursor glow (desktop only, disabled under prefers-reduced-motion) -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="header" id="header">
+    <div class="header__inner">
+      <a class="header__logo" href="#hero" aria-label="Talha Naqqash — home">
+        TN<span class="header__logo-dot">.</span>
+      </a>
+
+      <nav class="header__nav" id="headerNav" aria-label="Primary">
+        <ul class="header__nav-list">
+          <li class="header__nav-item"><a href="#about" class="header__nav-link">About</a></li>
+          <li class="header__nav-item"><a href="#skills" class="header__nav-link">Skills</a></li>
+          <li class="header__nav-item"><a href="#projects" class="header__nav-link">Projects</a></li>
+          <li class="header__nav-item"><a href="#contact" class="header__nav-link">Contact</a></li>
+        </ul>
+      </nav>
+
+      <a href="#contact" class="header__cta">Hire Me</a>
+
+      <button class="header__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="headerNav">
+        <span class="header__hamburger-bar"></span>
+        <span class="header__hamburger-bar"></span>
+        <span class="header__hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="hero">
+      <canvas class="hero__canvas" id="particleCanvas" aria-hidden="true"></canvas>
+
+      <div class="hero__container">
+        <div class="hero__content">
+          <p class="hero__greeting">Hello, world! <span aria-hidden="true">👋</span></p>
+
+          <h1 class="hero__title">
+            Hi, I'm <span class="hero__title-highlight">Talha Naqqash</span>
+          </h1>
+
+          <div class="hero__role" aria-live="polite">
+            <span class="hero__role-label">Available for white-label contract as a</span><br/>
+            <span class="hero__role-typed" id="typedText"></span><span class="hero__role-cursor" aria-hidden="true">|</span>
+          </div>
+
+          <p class="hero__tagline">
+            <strong>I BUILD WHAT AGENCIES CAN'T.</strong> <br/>
+            Specializing in turning Figma designs into lightning-fast, fully responsive Elementor websites with advanced speed optimization and bug fixing.
+          </p>
+
+          <div class="hero__actions">
+            <a href="#projects" class="button button--primary">
+              <span>View My Work</span>
+              <svg class="button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="mailto:talhanaqqash998@gmail.com" class="button button--secondary">Partner With Me</a>
+          </div>
+
+          <div class="hero__stats">
+            <div class="hero__stat">
+              <span class="hero__stat-number" data-target="60">0</span><span class="hero__stat-unit">+</span>
+              <span class="hero__stat-label">Projects Shipped</span>
+            </div>
+            <div class="hero__stat-divider" aria-hidden="true"></div>
+            <div class="hero__stat">
+              <span class="hero__stat-number" data-target="4">0</span><span class="hero__stat-unit">+</span>
+              <span class="hero__stat-label">Years Experience</span>
+            </div>
+            <div class="hero__stat-divider" aria-hidden="true"></div>
+            <div class="hero__stat">
+              <span class="hero__stat-number" data-target="40">0</span><span class="hero__stat-unit">+</span>
+              <span class="hero__stat-label">Agency Partners</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="hero__photo-glow" aria-hidden="true"></div>
+
+          <!-- Replace with your actual headshot URL -->
+          <div class="hero__photo hero__photo--placeholder" role="img" aria-label="Talha Naqqash">
+            <span>TN</span>
+          </div>
+
+          <div class="hero__badge hero__badge--wp" style="--delay: 0s">
+            <span class="hero__badge-icon" aria-hidden="true">⚡</span> Elementor Pro
+          </div>
+          <div class="hero__badge hero__badge--js" style="--delay: .6s">
+            <span class="hero__badge-icon" aria-hidden="true">{ }</span> Vanilla JS
+          </div>
+          <div class="hero__badge hero__badge--php" style="--delay: 1.2s">
+            <span class="hero__badge-icon" aria-hidden="true">&lt;/&gt;</span> PHP
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="section about" id="about">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">Who I Am</span>
+          <h2 class="section-heading__title">About <span class="section-heading__highlight">Me</span></h2>
+        </div>
+
+        <div class="about__grid">
+          <div class="about__text u-reveal">
+            <p class="about__lead">
+              I'm <strong>Talha Naqqash</strong>, a Senior Front-End &amp; WordPress Developer who
+              architects high-performance, custom web solutions for digital agencies.
+            </p>
+            <p class="about__paragraph">
+              I specialize in turning Figma designs into lightning-fast, fully responsive Elementor websites. My focus is on writing clean code, fixing complex bugs, and handling seamless API integrations to deliver premium user experiences.
+            </p>
+            <p class="about__paragraph">
+              I enjoy the agency side of development in particular: tight timelines, exacting
+              design handoffs, and client sites that need to look and perform flawlessly from
+              day one.
+            </p>
+            <div class="about__actions">
+              <a href="#contact" class="button button--primary">Let's Talk</a>
+              <a href="resume.pdf" download class="button button--outline">
+                <span aria-hidden="true">⬇</span> Download CV
+              </a>
+            </div>
+          </div>
+
+          <div class="about__visual u-reveal">
+            <div class="code-window">
+              <div class="code-window__header">
+                <span class="code-window__dot code-window__dot--red"></span>
+                <span class="code-window__dot code-window__dot--yellow"></span>
+                <span class="code-window__dot code-window__dot--green"></span>
+                <span class="code-window__title">profile.json</span>
+              </div>
+              <div class="code-window__body">
+<pre class="code-window__pre"><code>{
+  <span class="code-window__key">"name"</span>: <span class="code-window__value">"Talha Naqqash"</span>,
+  <span class="code-window__key">"role"</span>: <span class="code-window__value">"White-Label Front-End Developer"</span>,
+  <span class="code-window__key">"specialty"</span>: <span class="code-window__value">"Figma to WordPress & Elementor"</span>,
+  <span class="code-window__key">"stack"</span>: [
+    <span class="code-window__value">"PHP"</span>, <span class="code-window__value">"Vanilla JS"</span>,
+    <span class="code-window__value">"Custom CSS/JS"</span>, <span class="code-window__value">"Elementor Pro"</span>
+  ],
+  <span class="code-window__key">"focus"</span>: [
+    <span class="code-window__value">"Speed Optimization"</span>,
+    <span class="code-window__value">"Advanced Bug Fixing"</span>
+  ]
+}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SKILLS ================= -->
+    <section class="section skills" id="skills">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">What I Know</span>
+          <h2 class="section-heading__title">My <span class="section-heading__highlight">Skills</span></h2>
+        </div>
+
+        <div class="skills__grid">
+          <div class="skills__category u-reveal">
+            <h3 class="skills__category-title">Frontend &amp; UI</h3>
+            <div class="skills__tag-list">
+              <span class="skills__tag">Figma to WordPress</span>
+              <span class="skills__tag">Responsive Layouts</span>
+              <span class="skills__tag">Custom CSS / JS</span>
+              <span class="skills__tag">Vanilla JS (ES6+)</span>
+            </div>
+          </div>
+
+          <div class="skills__category u-reveal">
+            <h3 class="skills__category-title">WordPress &amp; CMS</h3>
+            <div class="skills__tag-list">
+              <span class="skills__tag">Elementor Pro</span>
+              <span class="skills__tag">Advanced Bug Fixing</span>
+              <span class="skills__tag">Custom Themes</span>
+              <span class="skills__tag">PHP</span>
+            </div>
+          </div>
+
+          <div class="skills__category u-reveal">
+            <h3 class="skills__category-title">Performance & Workflow</h3>
+            <div class="skills__tag-list">
+              <span class="skills__tag">Speed Optimization</span>
+              <span class="skills__tag">API Integration</span>
+              <span class="skills__tag">Git / CI</span>
+              <span class="skills__tag">Cross-browser QA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PROJECTS ================= -->
+    <section class="section projects" id="projects">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">What I've Built</span>
+          <h2 class="section-heading__title">Featured <span class="section-heading__highlight">Projects</span></h2>
+        </div>
+
+        <div class="projects__grid">
+          <article class="projects__card u-reveal">
+            <div class="projects__thumb projects__thumb--one" aria-hidden="true">
+              <span class="projects__thumb-icon">🧩</span>
+            </div>
+            <div class="projects__body">
+              <div class="projects__tags">
+                <span class="projects__tag">WordPress</span>
+                <span class="projects__tag">Elementor Pro</span>
+              </div>
+              <h3 class="projects__title">Smart Wave Group</h3>
+              <p class="projects__desc">Performance Score: 97/100<br/>Speed Improved: +48%<br/>Load Time: 0.7s</p>
+              <a href="https://smartwavegroup.com.au/" target="_blank" rel="noopener noreferrer" class="projects__link">Live Site →</a>
+            </div>
+          </article>
+
+          <article class="projects__card u-reveal">
+            <div class="projects__thumb projects__thumb--two" aria-hidden="true">
+              <span class="projects__thumb-icon">🐒</span>
+            </div>
+            <div class="projects__body">
+              <div class="projects__tags">
+                <span class="projects__tag">WordPress</span>
+                <span class="projects__tag">Elementor Pro</span>
+              </div>
+              <h3 class="projects__title">Cyan Baboon</h3>
+              <p class="projects__desc">Performance Score: 94/100<br/>Speed Improved: +40%<br/>Load Time: 0.9s</p>
+              <a href="https://cyan-baboon-493148.hostingersite.com/" target="_blank" rel="noopener noreferrer" class="projects__link">Live Site →</a>
+            </div>
+          </article>
+
+          <article class="projects__card u-reveal">
+            <div class="projects__thumb projects__thumb--three" aria-hidden="true">
+              <span class="projects__thumb-icon">🔌</span>
+            </div>
+            <div class="projects__body">
+              <div class="projects__tags">
+                <span class="projects__tag">WordPress</span>
+                <span class="projects__tag">API Connected</span>
+              </div>
+              <h3 class="projects__title">Safe Duck</h3>
+              <p class="projects__desc">Performance Score: 99/100<br/>Speed Improved: +61%<br/>Load Time: 0.4s</p>
+              <a href="https://mysafeduck.com/" target="_blank" rel="noopener noreferrer" class="projects__link">Live Site →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="section contact" id="contact">
+      <div class="u-container">
+        <div class="section-heading u-reveal">
+          <span class="section-heading__eyebrow">Let's Connect</span>
+          <h2 class="section-heading__title">Get In <span class="section-heading__highlight">Touch</span></h2>
+        </div>
+
+        <div class="contact__grid">
+          <div class="contact__info u-reveal">
+            <p class="contact__lead">
+              Got a WordPress overflow project or a complex bug to fix? Let's get it solved. White-label NDA compliance assured.
+            </p>
+
+            <div class="contact__actions-large">
+              <a href="mailto:talhanaqqash998@gmail.com" class="button button--primary">
+                <span aria-hidden="true" style="margin-right: 8px;">📧</span> Email Me
+              </a>
+              <a href="https://wa.me/923126311998" target="_blank" rel="noopener noreferrer" class="button button--whatsapp">
+                <span aria-hidden="true" style="margin-right: 8px;">💬</span> WhatsApp Chat
+              </a>
+            </div>
+
+            <div class="contact__socials">
+              <a href="#" class="contact__social" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23.96-.27 1.98-.4 3-.4 1.02 0 2.04.13 3 .4 2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.19.7.8.58C20.56 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12Z"/></svg>
+              </a>
+              <a href="https://www.linkedin.com/in/talha-naqqash-625b4b26b/" class="contact__social" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0Z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="u-container footer__inner">
+      <a class="footer__logo" href="#hero">TN<span class="footer__logo-dot">.</span></a>
+      <p class="footer__copy">© <span id="footerYear"></span> Talha Naqqash. Built with care.</p>
+      <a class="footer__back-to-top" href="#hero" aria-label="Back to top">↑</a>
+    </div>
+  </footer>
+
+  <script>
+  /* ==========================================================================
+     Talha Naqqash — Portfolio
+     Vanilla ES6+ JS. No jQuery, no dependencies.
+     ========================================================================== */
+
+  (() => {
+    'use strict';
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initHeaderScroll();
+      initMobileMenu();
+      initActiveNavLink();
+      initTypewriter();
+      initStatCounters();
+      initRevealOnScroll();
+      initCursorGlow();
+      initParticleField();
+      initFooterYear();
+    });
+
+    /* ---------- Sticky header: shadow state on scroll ---------- */
+    function initHeaderScroll() {
+      const header = document.getElementById('header');
+      if (!header) return;
+
+      const toggle = () => {
+        header.classList.toggle('header--scrolled', window.scrollY > 24);
+      };
+      toggle();
+      window.addEventListener('scroll', toggle, { passive: true });
+    }
+
+    /* ---------- Mobile hamburger menu ---------- */
+    function initMobileMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const nav = document.getElementById('headerNav');
+      if (!hamburger || !nav) return;
+
+      const closeMenu = () => {
+        nav.classList.remove('header__nav--open');
+        hamburger.classList.remove('header__hamburger--active');
+        hamburger.setAttribute('aria-expanded', 'false');
+      };
+
+      hamburger.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('header__nav--open');
+        hamburger.classList.toggle('header__hamburger--active', isOpen);
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      // Close on link click (mobile UX)
+      nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+
+      // Close on outside click
+      document.addEventListener('click', (event) => {
+        if (!nav.contains(event.target) && !hamburger.contains(event.target)) closeMenu();
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMenu();
+      });
+    }
+
+    /* ---------- Active nav link highlighting while scrolling ---------- */
+    function initActiveNavLink() {
+      const sections = document.querySelectorAll('main section[id]');
+      const links = document.querySelectorAll('.header__nav-link');
+      if (!sections.length || !links.length) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.getAttribute('id');
+            links.forEach((link) => {
+              link.classList.toggle('is-active', link.getAttribute('href') === `#${id}`);
+            });
+          });
+        },
+        { rootMargin: '-40% 0px -55% 0px' }
+      );
+
+      sections.forEach((section) => observer.observe(section));
+    }
+
+    /* ---------- Typewriter effect for rotating role text ---------- */
+    function initTypewriter() {
+      const el = document.getElementById('typedText');
+      if (!el) return;
+
+      const roles = [
+        'White-Label Front-End Developer',
+        'Elementor Pro Expert',
+        'Speed Optimization Specialist',
+        'Bug Fixing Specialist',
+      ];
+
+      if (prefersReducedMotion) {
+        el.textContent = roles[0];
+        return;
+      }
+
+      let roleIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+
+      const TYPE_SPEED = 65;
+      const DELETE_SPEED = 35;
+      const PAUSE_AFTER_TYPE = 1800;
+      const PAUSE_AFTER_DELETE = 300;
+
+      const tick = () => {
+        const currentRole = roles[roleIndex];
+
+        if (!isDeleting) {
+          charIndex++;
+          el.textContent = currentRole.slice(0, charIndex);
+          if (charIndex === currentRole.length) {
+            isDeleting = true;
+            setTimeout(tick, PAUSE_AFTER_TYPE);
+            return;
+          }
+          setTimeout(tick, TYPE_SPEED);
+        } else {
+          charIndex--;
+          el.textContent = currentRole.slice(0, charIndex);
+          if (charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            setTimeout(tick, PAUSE_AFTER_DELETE);
+            return;
+          }
+          setTimeout(tick, DELETE_SPEED);
+        }
+      };
+
+      tick();
+    }
+
+    /* ---------- Animated stat counters (count up once, on scroll into view) ---------- */
+    function initStatCounters() {
+      const counters = document.querySelectorAll('.hero__stat-number');
+      if (!counters.length) return;
+
+      const animateCounter = (el) => {
+        const target = parseInt(el.dataset.target, 10) || 0;
+
+        if (prefersReducedMotion) {
+          el.textContent = target;
+          return;
+        }
+
+        const duration = 1400;
+        const start = performance.now();
+
+        const step = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+          el.textContent = Math.round(eased * target);
+          if (progress < 1) requestAnimationFrame(step);
+        };
+
+        requestAnimationFrame(step);
+      };
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateCounter(entry.target);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.6 }
+      );
+
+      counters.forEach((counter) => observer.observe(counter));
+    }
+
+    /* ---------- Generic scroll-reveal for section content ---------- */
+    function initRevealOnScroll() {
+      const items = document.querySelectorAll('.u-reveal');
+      if (!items.length) return;
+
+      if (prefersReducedMotion) {
+        items.forEach((item) => item.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      items.forEach((item) => observer.observe(item));
+    }
+
+    /* ---------- Ambient cursor glow that follows the pointer ---------- */
+    function initCursorGlow() {
+      const glow = document.getElementById('cursorGlow');
+      if (!glow || prefersReducedMotion) return;
+      if (window.matchMedia('(hover: none)').matches) return; // skip on touch devices
+
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let currentX = targetX;
+      let currentY = targetY;
+      let active = false;
+
+      window.addEventListener('mousemove', (event) => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+        if (!active) {
+          active = true;
+          glow.classList.add('is-active');
+        }
+      });
+
+      document.addEventListener('mouseleave', () => glow.classList.remove('is-active'));
+
+      const render = () => {
+        // Smooth trailing motion
+        currentX += (targetX - currentX) * 0.12;
+        currentY += (targetY - currentY) * 0.12;
+        glow.style.transform = `translate(${currentX}px, ${currentY}px) translate(-50%, -50%)`;
+        requestAnimationFrame(render);
+      };
+
+      requestAnimationFrame(render);
+    }
+
+    /* ---------- Lightweight particle constellation field in the hero ---------- */
+    function initParticleField() {
+      const canvas = document.getElementById('particleCanvas');
+      if (!canvas || prefersReducedMotion) return;
+
+      const ctx = canvas.getContext('2d');
+      const hero = canvas.closest('.hero');
+      let width, height, particles;
+      let animationId;
+
+      const PARTICLE_COLOR = '79, 70, 229'; // matches --color-accent (indigo)
+      const LINK_DISTANCE = 130;
+
+      const particleCount = () => (window.innerWidth < 720 ? 26 : 55);
+
+      const resize = () => {
+        width = canvas.width = hero.offsetWidth;
+        height = canvas.height = hero.offsetHeight;
+      };
+
+      const createParticles = () => {
+        particles = Array.from({ length: particleCount() }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          r: Math.random() * 1.6 + 0.6,
+        }));
+      };
+
+      const draw = () => {
+        ctx.clearRect(0, 0, width, height);
+
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < 0 || p.x > width) p.vx *= -1;
+          if (p.y < 0 || p.y > height) p.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(${PARTICLE_COLOR}, 0.35)`;
+          ctx.fill();
+        });
+
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < LINK_DISTANCE) {
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(${PARTICLE_COLOR}, ${0.12 * (1 - dist / LINK_DISTANCE)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+
+        animationId = requestAnimationFrame(draw);
+      };
+
+      resize();
+      createParticles();
+      draw();
+
+      window.addEventListener('resize', () => {
+        resize();
+        createParticles();
+      });
+
+      // Pause the animation when the tab isn't visible to save CPU/battery
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          cancelAnimationFrame(animationId);
+        } else {
+          draw();
+        }
+      });
+    }
+
+    /* ---------- Footer year ---------- */
+    function initFooterYear() {
+      const el = document.getElementById('footerYear');
+      if (el) el.textContent = new Date().getFullYear();
+    }
+  })();
+  </script>
+</body>
+</html>
