@@ -730,7 +730,25 @@
     .skills__grid, .projects__grid { grid-template-columns: 1fr 1fr; }
   }
 
-  @media (max-width: 720px) {
+   @media (max-width: 720px) {
+    /* --- NEW HEADER MOBILE LAYOUT --- */
+    .header__inner {
+      position: relative;
+    }
+    .header__hamburger { 
+      display: flex; 
+      order: -1; /* Pushes the menu icon to the far left */
+    }
+    .header__logo {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%); /* Perfectly centers the logo */
+    }
+    .header__cta { 
+      display: none; 
+    }
+    /* -------------------------------- */
+
     .header__nav {
       position: fixed;
       inset: 4.2rem var(--space-md) auto;
@@ -744,10 +762,13 @@
       pointer-events: none;
       transition: all var(--transition-base);
     }
+    
+    /* ... keep the rest of your mobile CSS exactly as it is ... */
+
+  
     .header__nav--open { transform: translateY(0); opacity: 1; pointer-events: auto; }
     .header__nav-list { flex-direction: column; gap: var(--space-sm); text-align: center; }
-    .header__cta { display: none; }
-    .header__hamburger { display: flex; }
+    
 
     .hero__stats { flex-wrap: wrap; }
     .skills__grid, .projects__grid { grid-template-columns: 1fr; }
@@ -797,7 +818,6 @@
 
       <div class="hero__container">
         <div class="hero__content">
-          <p class="hero__greeting">Hello, world! <span aria-hidden="true">👋</span></p>
 
           <h1 class="hero__title">
             Hi, I'm <span class="hero__title-highlight">Talha Naqqash</span>
