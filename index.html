@@ -440,16 +440,18 @@
     filter: blur(60px);
     animation: pulseGlow 6s ease-in-out infinite;
   }
-
+    
   .hero__photo {
     position: relative;
     width: 280px;
     height: 280px;
     border-radius: 50%;
     object-fit: cover;
+    object-position: top; /* <--- This forces the crop to keep your head */
     border: 4px solid #fff;
     box-shadow: var(--shadow-lg);
   }
+
   .hero__photo--placeholder {
     display: flex;
     align-items: center;
