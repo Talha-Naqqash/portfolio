@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Internet Bill</title>
+    <!-- Using Tailwind CSS for fast, modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main Card Container -->
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden">
+        
+        <!-- Header -->
+        <div class="bg-blue-600 p-6 text-center">
+            <h1 class="text-2xl font-bold text-white">Quick Pay</h1>
+            <p class="text-blue-100 text-sm mt-1">Renew your internet instantly</p>
+        </div>
+
+        <!-- Payment Form -->
+        <!-- The form submits to checkout.php via POST to generate the security hash -->
+        <form action="checkout.php" method="POST" class="p-6 space-y-6">
+            
+            <!-- User ID Field -->
+            <div>
+                <label for="user_id" class="block text-sm font-medium text-gray-700 mb-1">
+                    Wateen User ID
+                </label>
+                <input 
+                    type="text" 
+                    id="user_id" 
+                    name="user_id" 
+                    placeholder="e.g., ali_block_4" 
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"
+                >
+                <p class="text-xs text-gray-500 mt-1">Enter your assigned username to renew</p>
+            </div>
+
+            <!-- Package Selection -->
+            <div>
+                <label for="amount" class="block text-sm font-medium text-gray-700 mb-1">
+                    Select Package
+                </label>
+                <select 
+                    id="amount" 
+                    name="amount" 
+                    required
+                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition bg-white"
+                >
+                    <option value="" disabled selected>Choose your internet speed...</option>
+                    <option value="1500">5 Mbps - Rs. 1,500 / month</option>
+                    <option value="2000">10 Mbps - Rs. 2,000 / month</option>
+                    <option value="3000">20 Mbps - Rs. 3,000 / month</option>
+                    <option value="5000">50 Mbps - Rs. 5,000 / month</option>
+                </select>
+            </div>
+
+            <!-- Supported Payment Methods Visual -->
+            <div class="flex items-center justify-center space-x-4 py-2">
+                <span class="text-xs text-gray-400 font-medium tracking-wider uppercase">Pay via</span>
+                <!-- Text placeholders for logos; you can replace these with actual <img> tags -->
+                <span class="px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded">JazzCash</span>
+                <span class="px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">Easypaisa</span>
+                <span class="px-2 py-1 bg-gray-100 text-gray-700 text-xs font-bold rounded">Debit/Credit Card</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+                type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-200 flex justify-center items-center"
+            >
+                Proceed to Payment
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </button>
+        </form>
+
+        <!-- Footer -->
+        <div class="bg-gray-50 border-t border-gray-100 p-4 text-center">
+            <p class="text-xs text-gray-500">
+                Need help? Call support at <a href="tel:03000000000" class="text-blue-600 hover:underline">0300-0000000</a>
+            </p>
+        </div>
+    </div>
+
+</body>
+</html>
